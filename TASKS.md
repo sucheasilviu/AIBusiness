@@ -3,6 +3,7 @@
 Status: TODO · DOING · REVIEW · DONE · CUT   ·   Times: Europe/Bucharest
 Agents: take the first **TODO** task with your ID whose "After" tasks are DONE. Humans: send P1 (PROMPTS.md) to start the next one.
 Product: **PaletScan UR20** (see DESCRIPTION.md). **One industry: bakery & pastry ingredient producers** (mentor check 1). Feature freeze **13:15** (unchanged).
+**13:08: T30, T08, T10, T36 done. The demo still calls `placeholderAnalyze` → gemini-silviu wires the real `analyze()` NOW (a fix, allowed after the freeze). Vision (T31/T34/T37) CUT. T12: bakery first, adjacent food-bucket producers (dairy, sauces, jams) from Q2 as the scaling step; funnel numbers unchanged.**
 **Checkpoint 12:51: 25 min behind.** Live demo is now due **13:10**. Vision (T31, T34, T37) runs only if T30 + T08 work by 13:05; otherwise it is cut. T33 is cut.
 
 ## Standing tasks
@@ -43,7 +44,7 @@ Product: **PaletScan UR20** (see DESCRIPTION.md). **One industry: bakery & pastr
 |---|---|---|---|---|---|---|---|
 | T30 | Palletizing engine (deterministic) | codex-silviu | web/src/lib/palletizer.ts (+ palletizer.check.ts self-check) | `analyze(input): EngineResult` implements DESCRIPTION §8 engine rules + validation; each constant commented with its source; a self-check with asserts on test records 1, 3, 5 runs green (`npx tsx`); demo calls it client-side or via /api/ai. **Top priority, push as soon as the asserts pass** | T06 | 13:00 | TODO |
 | T31 | Vision route: photo → suggestions | codex-silviu | web/src/app/api/vision/route.ts, web/src/lib/vision.ts, web/src/lib/image.ts (client resize ≤ 1024 px, JPEG) | POST image → VisionSuggestion JSON (Gemini, JSON schema); no key / error / > 4 MB → `source: "fallback"` + message; never returns weight or size. **Only if T30 is done by 13:00** | T30 | 13:15 | TODO |
-| T32 | Pallet drawing (SVG) | gemini-silviu | web/src/components/PalletView.tsx | top view of the pallet with bucket circles from `pattern.positions` (mm → viewBox), side view showing layers + height; labels: per layer, layers, per pallet, kg; scales at 390 px | T08, T30 | 13:15 | TODO |
+| T32 | Pallet drawing (SVG) | gemini-silviu | web/src/components/PalletView.tsx | top view of the pallet with bucket circles from `pattern.positions` (mm → viewBox), side view showing layers + height; labels: per layer, layers, per pallet, kg; scales at 390 px. Hard stop 13:20; if not green, ship numbers only | T08, T30 | 13:20 | TODO |
 | T33 | Cycle panel (simple animation) | gemini-silviu | web/src/components/CycleView.tsx | two bars "linie" vs "robot" (găleți/minut), bottleneck highlighted, buckets/hour, pallet A/B fill progress with a CSS animation; no new npm package. | T32 | – | CUT (12:51, behind schedule; cycle numbers stay in ResultView) |
 | T34 | Photo step on /demo | gemini-silviu | web/src/components/PhotoScan.tsx, web/public/test/galeata-test.png | `<input type="file" accept="image/*" capture="environment">` + "Folosește poza de test"; calls /api/vision; prefills shape/handle/material with a „Sugestie AI · verifică” badge + confidence; fallback message works. Go/no-go at T14 | T31, T36, T32 | 13:15 | TODO |
 | T35 | Verify the engine by hand (critical AI check) | codex-mihai | web/src/data/expected-results.json, status/codex-mihai.md | for all 6 test records: expected perLayer, layers, perPallet, robotRate, bottleneck, verdict computed independently of palletizer.ts (spreadsheet or by hand, show the math); after T30, compare and list every mismatch in AI log (checking, so allowed after the freeze) | T07 | 13:25 | TODO |
@@ -54,4 +55,4 @@ Product: **PaletScan UR20** (see DESCRIPTION.md). **One industry: bakery & pastr
 - T02 merged into T10 (idea already picked).
 - Dairy, paints, construction: parked as the national-scaling step (paint/plaster buckets are often above the usable payload).
 - T33 cycle animation: CUT at 12:51.
-- If T30 + T08 are not working by 13:05: cut T31, T34, T37 (vision). The app ships as manual form → engine → pallet drawing → AI explanation.
+- T31, T34, T37 vision: CUT at 13:08 (not started by the freeze). The app ships as manual form → engine → pallet drawing → AI explanation. The test bucket image stays in business/promo/ (usable for the poster). The landing page and pitch must NOT mention photo scanning, or only as "în curând".
