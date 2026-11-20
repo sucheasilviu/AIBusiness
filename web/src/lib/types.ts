@@ -1,5 +1,4 @@
 // Shared types. Owner: codex-silviu.
-// Retarget the product by changing DemoInput fields (see content.ts) and AiResult.
 
 export type FieldType = "text" | "textarea" | "number" | "select";
 
@@ -13,7 +12,7 @@ export interface FormField {
   help?: string;
 }
 
-/** What the demo form sends to /api/ai: field name -> value. */
+/** Retained for the starter UI until the PaletScan demo form takes over. */
 export type DemoInput = Record<string, string>;
 
 export interface ResultItem {
@@ -41,3 +40,79 @@ export interface AiResponse {
   reason?: string;
   result: AiResult;
 }
+
+export interface PalletizerInput {
+  companyName: string;
+  industry: "umpluturi" | "creme" | "glazuri" | "amelioratori" | "alta";
+  bucketWeightKg: number;
+  bucketDiameterMm: number;
+  bucketHeightMm: number;
+  shape: "rotunda" | "patrata";
+  handle: "metal" | "plastic" | "fara";
+  material: "plastic" | "metal";
+  lineRatePerMin: number;
+  shiftsPerDay: 1 | 2 | 3;
+  palletType: "eur" | "industrial";
+  maxPalletHeightMm: number;
+  palletChangeMin: number;
+  separator: "da" | "nu";
+  twoPalletSpace: "da" | "nu" | "nu_stiu";
+  conveyorSignals: "da" | "nu" | "nu_stiu";
+  notes?: string;
+}
+
+/** Form and test values before numeric conversion and required-field validation. */
+export type PalletizerFormValues = {
+  [Field in keyof PalletizerInput]?: PalletizerInput[Field] extends number
+    ? PalletizerInput[Field] | string
+    : PalletizerInput[Field] | "";
+};
+
+export type Verdict = "potrivit" | "evaluare" | "nepotrivit";
+
+export interface Criterion {
+  id: string;
+  label: string;
+  status: "ok" | "evaluare" | "nepotrivit";
+  detail: string;
+}
+
+export interface EngineResult {
+  ok: boolean;
+  errors: string[];
+  verdict?: Verdict;
+  criteria: Criterion[];
+  pattern?: {
+    perLayer: number;
+    layers: number;
+    perPallet: number;
+    palletKg: number;
+    layout: "grid" | "offset";
+    positions: { x: number; y: number }[]; // mm
+    palletMm: { l: number; w: number };
+    bucketMm: number;
+  };
+  cycle?: {
+    lineRate: number;
+    robotRate: number;
+    effectiveRate: number;
+    bucketsPerHour: number;
+    bottleneck: "linie" | "robot" | "echilibrat";
+    robotIdlePct: number;
+    palletFillMin: number;
+    palletsPerShift: number;
+    changeOk: boolean;
+  };
+}
+
+export interface AiExplanation {
+  summary: string;
+  questions: string[];
+  source: "ai" | "fallback";
+}
+
+type VisualField = "shape" | "handle" | "material";
+
+export type VisionSuggestion = {
+  [Field in VisualField]?: { value: PalletizerInput[Field]; confidence: number }; // 0 to 1
+} & { notes: string; source: "ai" | "fallback" };

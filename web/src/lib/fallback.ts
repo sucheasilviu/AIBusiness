@@ -1,9 +1,33 @@
-// Canned answer used when the AI is unavailable (no key, rate limit, timeout, bad JSON).
-// It keeps the demo working during judging. Owner: codex-silviu.
-// Retarget it at kickoff so it looks like a real answer for the new product.
+// Romanian fallback explanations. Owner: codex-silviu.
 
-import type { AiResult, DemoInput } from "./types";
+import type { AiExplanation, AiResult, DemoInput, EngineResult, Verdict } from "./types";
 
+const verdictSummaries: Record<Verdict, string> = {
+  potrivit: "Linia este potrivită conform criteriilor verificate.",
+  evaluare: "Linia necesită evaluare tehnică înainte de alegerea celulei de paletizare.",
+  nepotrivit: "Linia este nepotrivită pentru configurația evaluată.",
+};
+
+export function fallbackExplanation({ verdict, criteria, cycle }: EngineResult): AiExplanation {
+  const mainCriterion = criteria.find(({ status }) => status === "nepotrivit")
+    ?? criteria.find(({ status }) => status === "evaluare")
+    ?? criteria[0];
+  const summary = verdict ? verdictSummaries[verdict] : "Verifică datele de intrare pentru a obține o evaluare a liniei.";
+  const throughputQuestion = cycle?.bottleneck === "robot"
+    ? "Ce variații de ritm trebuie să preia un tampon între linie și robot?"
+    : "Cum variază ritmul de ieșire a găleților între produse și ture?";
+  return {
+    source: "fallback",
+    summary: mainCriterion && verdict ? `${summary} ${mainCriterion.detail}` : summary,
+    questions: [
+      "Ce tipuri de găleți și mânere trebuie să prindă robotul în producție?",
+      throughputQuestion,
+      "Cum sunt schimbate paleții și ce spațiu rămâne disponibil în jurul transportorului?",
+    ],
+  };
+}
+
+// Used by the starter landing preview until T05 replaces that page.
 export function fallbackResult(input: DemoInput): AiResult {
   const idea = (input.idea || "ideea ta").trim();
   const shortIdea = idea.length > 60 ? `${idea.slice(0, 57)}…` : idea;

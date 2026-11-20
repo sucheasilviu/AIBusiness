@@ -1,20 +1,21 @@
 // Server-side Gemini call with a safety net. Owner: codex-silviu.
 // Import this only from route handlers (src/app/api/**): it reads GEMINI_API_KEY.
 //
-// Order of attempts: GEMINI_MODEL (if set) -> gemini-flash-latest -> gemini-flash-lite-latest.
+// Order of attempts: GEMINI_MODEL (if set) -> gemini-3.5-flash-lite -> gemini-flash-latest.
 // Each attempt has a timeout; the whole call has a deadline. If everything fails,
-// the user still gets fallbackResult() so the demo never breaks.
+// the user still gets a Romanian explanation generated from the engine result.
 
 import { ApiError, GoogleGenAI, ThinkingLevel } from "@google/genai";
-import { fallbackResult } from "./fallback";
+import { fallbackExplanation } from "./fallback";
 import { RESULT_JSON_SCHEMA, SYSTEM_PROMPT, buildUserPrompt } from "./prompts";
-import type { AiResponse, AiResult, DemoInput, ResultItem } from "./types";
+import type { AiExplanation, EngineResult } from "./types";
 
-const ATTEMPT_TIMEOUT_MS = 12_000;
-const TOTAL_DEADLINE_MS = 24_000;
+// Leave time for rendering within the demo's ten-second target.
+const ATTEMPT_TIMEOUT_MS = 5_500;
+const TOTAL_DEADLINE_MS = 8_000;
 
 function modelChain(): string[] {
-  const chain = [process.env.GEMINI_MODEL, "gemini-flash-latest", "gemini-flash-lite-latest"];
+  const chain = [process.env.GEMINI_MODEL, "gemini-3.5-flash-lite", "gemini-flash-latest"];
   return [...new Set(chain.filter((m): m is string => Boolean(m && m.trim())))];
 }
 
@@ -22,26 +23,27 @@ export function hasApiKey(): boolean {
   return Boolean(process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY);
 }
 
-export async function generateResult(input: DemoInput): Promise<AiResponse> {
+export async function generateExplanation(result: EngineResult): Promise<AiExplanation> {
   const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
-  if (!apiKey) {
-    return { source: "fallback", reason: "no-api-key", result: fallbackResult(input) };
+  if (!apiKey || !result.ok) {
+    return fallbackExplanation(result);
   }
 
   const ai = new GoogleGenAI({ apiKey });
   const deadline = Date.now() + TOTAL_DEADLINE_MS;
   const errors: string[] = [];
+  const contents = buildUserPrompt(result);
 
   for (const model of modelChain()) {
     // First try the fast + structured variant; if the model rejects those options (HTTP 400),
     // retry the same model with a plain JSON request.
     for (const variant of ["fast-structured", "plain"] as const) {
       const remaining = deadline - Date.now();
-      if (remaining < 2_000) break;
+      if (remaining <= 0) break;
       try {
         const response = await ai.models.generateContent({
           model,
-          contents: buildUserPrompt(input),
+          contents,
           config: {
             systemInstruction: SYSTEM_PROMPT,
             responseMimeType: "application/json",
@@ -51,8 +53,8 @@ export async function generateResult(input: DemoInput): Promise<AiResponse> {
               : {}),
           },
         });
-        const result = parseResult(response.text);
-        if (result) return { source: "gemini", model, result };
+        const explanation = parseExplanation(response.text);
+        if (explanation) return { ...explanation, source: "ai" };
         errors.push(`${model}/${variant}: invalid JSON`);
         break; // the model answered but badly: try the next model
       } catch (error) {
@@ -65,17 +67,15 @@ export async function generateResult(input: DemoInput): Promise<AiResponse> {
   }
 
   console.error("[ai] all attempts failed ->", errors.join(" | "));
-  return { source: "fallback", reason: "api-error", result: fallbackResult(input) };
+  return fallbackExplanation(result);
 }
 
 function describeError(error: unknown): string {
-  if (error instanceof ApiError) return `HTTP ${error.status} ${error.message.slice(0, 120)}`;
-  if (error instanceof Error) return `${error.name}: ${error.message.slice(0, 120)}`;
-  return String(error);
+  if (error instanceof ApiError) return `HTTP ${error.status}`;
+  return error instanceof Error ? error.name : "Unknown error";
 }
 
-/** Parses the model output defensively and normalises it to AiResult. */
-export function parseResult(text: string | undefined): AiResult | null {
+function parseExplanation(text: string | undefined): Omit<AiExplanation, "source"> | null {
   if (!text) return null;
   const cleaned = text.trim().replace(/^```(?:json)?\s*/i, "").replace(/```$/, "").trim();
   let data: unknown;
@@ -85,29 +85,12 @@ export function parseResult(text: string | undefined): AiResult | null {
     return null;
   }
   if (!data || typeof data !== "object") return null;
-  const raw = data as Record<string, unknown>;
-  if (typeof raw.title !== "string" || typeof raw.summary !== "string") return null;
+  const { summary, questions } = data as Record<string, unknown>;
+  if (typeof summary !== "string" || !summary.trim()
+      || !Array.isArray(questions) || questions.length !== 3
+      || !questions.every((question): question is string => typeof question === "string" && !!question.trim())) {
+    return null;
+  }
 
-  const items: ResultItem[] = Array.isArray(raw.items)
-    ? raw.items
-        .filter((it): it is Record<string, unknown> => Boolean(it) && typeof it === "object")
-        .map((it) => ({
-          title: String(it.title ?? "").trim(),
-          detail: String(it.detail ?? "").trim(),
-          tag: typeof it.tag === "string" ? it.tag : undefined,
-        }))
-        .filter((it) => it.title || it.detail)
-        .slice(0, 8)
-    : [];
-
-  const score = typeof raw.score === "number" ? Math.max(0, Math.min(100, Math.round(raw.score))) : undefined;
-
-  return {
-    title: raw.title.trim(),
-    summary: raw.summary.trim(),
-    score,
-    scoreLabel: typeof raw.scoreLabel === "string" ? raw.scoreLabel : undefined,
-    items,
-    nextStep: typeof raw.nextStep === "string" ? raw.nextStep : undefined,
-  };
+  return { summary: summary.trim(), questions: questions.map((question) => question.trim()) };
 }
