@@ -1,0 +1,12 @@
+# dependencies and builds
+node_modules/
+.next/
+.vercel/
+# secrets
+.env*
+!.env.example
+# OS / editor / Office lock files
+.DS_Store
+Thumbs.db
+~$*
+*.log

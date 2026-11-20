@@ -1,0 +1,38 @@
+[
+  {
+    "idea": "Aplicație care conectează studenții cu meditatori verificați, cu plată pe oră și recenzii.",
+    "audience": "Elevi de liceu și părinții lor din orașe mari",
+    "budget": "15000",
+    "city": "Cluj-Napoca"
+  },
+  {
+    "idea": "Abonament lunar de cutii cu produse locale de la mici producători din Moldova.",
+    "audience": "Familii tinere din mediul urban",
+    "budget": "40000",
+    "city": "Iași"
+  },
+  {
+    "idea": "Platformă care ajută cafenelele mici să reducă risipa alimentară prin vânzarea produselor nevândute la preț redus seara.",
+    "audience": "Cafenele și patiserii independente",
+    "budget": "25000",
+    "city": "București"
+  },
+  {
+    "idea": "Serviciu de închiriere de biciclete electrice pentru turiști, cu trasee audio-ghidate.",
+    "audience": "Turiști străini și români în weekend",
+    "budget": "80000",
+    "city": "Brașov"
+  },
+  {
+    "idea": "Asistent care generează automat contracte simple de închiriere pentru proprietari mici.",
+    "audience": "Proprietari cu 1–3 apartamente de închiriat",
+    "budget": "10000",
+    "city": "Online, la nivel național"
+  },
+  {
+    "idea": "Atelier mobil de reparații pentru electrocasnice mici, cu programare din aplicație.",
+    "audience": "Pensionari și familii din cartiere rezidențiale",
+    "budget": "30000",
+    "city": "Timișoara"
+  }
+]
