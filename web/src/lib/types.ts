@@ -100,6 +100,7 @@ export interface EngineResult {
     bottleneck: "linie" | "robot" | "echilibrat";
     robotIdlePct: number;
     palletFillMin: number;
+    palletChangeMin?: number;
     palletsPerShift: number;
     changeOk: boolean;
   };

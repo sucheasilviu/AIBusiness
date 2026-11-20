@@ -80,7 +80,7 @@ function palletPattern(
   return { perLayer, layers, perPallet, palletKg: perPallet * bucketWeight, layout, positions, palletMm, bucketMm };
 }
 
-function cycleFor(weight: number, lineRate: number, perPallet: number, changeMin: number, twoPositions: boolean): Cycle {
+function cycleFor(weight: number, lineRate: number, perPallet: number, palletChangeMin: number, twoPositions: boolean): Cycle {
   const testedSpan = TESTED_WEIGHT_KG - LIGHT_WEIGHT_KG;
   const weightInSpan = Math.min(testedSpan, Math.max(0, weight - LIGHT_WEIGHT_KG));
   const robotRate = LIGHT_RATE + (HEAVY_RATE - LIGHT_RATE) * weightInSpan / testedSpan;
@@ -91,8 +91,8 @@ function cycleFor(weight: number, lineRate: number, perPallet: number, changeMin
   return {
     lineRate, robotRate, effectiveRate, bucketsPerHour, bottleneck,
     robotIdlePct: (1 - effectiveRate / robotRate) * 100,
-    palletFillMin, palletsPerShift: Math.floor(bucketsPerHour * HOURS_PER_SHIFT / perPallet),
-    changeOk: twoPositions && changeMin < palletFillMin,
+    palletFillMin, palletChangeMin, palletsPerShift: Math.floor(bucketsPerHour * HOURS_PER_SHIFT / perPallet),
+    changeOk: twoPositions && palletChangeMin < palletFillMin,
   };
 }
 

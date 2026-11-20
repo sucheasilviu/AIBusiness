@@ -41,6 +41,9 @@ function isEngineResult(value: unknown): value is EngineResult {
 
   return cycle === undefined || (
     isRecord(cycle) && typeof cycle.changeOk === "boolean"
+    && (cycle.palletChangeMin === undefined || (
+      typeof cycle.palletChangeMin === "number" && Number.isFinite(cycle.palletChangeMin) && cycle.palletChangeMin > 0
+    ))
     && (cycle.bottleneck === "linie" || cycle.bottleneck === "robot" || cycle.bottleneck === "echilibrat")
     && hasFiniteNumbers(cycle, [
       "lineRate", "robotRate", "effectiveRate", "bucketsPerHour", "robotIdlePct", "palletFillMin", "palletsPerShift",

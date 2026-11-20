@@ -1,10 +1,11 @@
 # status/codex-silviu.md (only `codex-silviu` edits this file)
 
 ## Now
-- Idle.
+- On standby for T20 browser QA bugs in the backend lane.
 
 ## Done
 <!-- newest first: T## · what changed (files) · how it was checked · notes for the next agent -->
+- AI timing fix · Carried the validated `palletChangeMin` through `palletizer.ts`, `types.ts`, and `/api/ai`, with compatibility for older payloads. `prompts.ts` labels fill and manual change times separately and instructs Gemini to preserve each value's label and unit. `palletizer.check.ts` covers both labels and a legacy result. Production build and assertions passed. The local live request for the demo's built-in record 1 returned `source: "ai"` in 1.9 s. The API also rejected a string in the new numeric field.
 - T06b · Set `gemini-3.1-flash-lite` as the first default in `web/src/lib/ai.ts`, with an 8 s attempt timeout and a 9 s total deadline. `npm run build` passed. One local `/api/ai` POST for the demo's built-in fictional record 1 returned HTTP 200 and `source: "ai"` in 5.8 s. The shared T07 fixture still contained starter data. Compared the full explanation to the exact `EngineResult` sent in the request.
 - T30 · Added `analyze()` in `web/src/lib/palletizer.ts` and assertions in `web/src/lib/palletizer.check.ts`. `npm run build` and `npx tsx src/lib/palletizer.check.ts` passed using the §8 equivalents of records 1, 3 and 5 plus boundary cases. The check uses the shared records once T07 replaces the starter data. Cycle estimates use an eight-hour shift. The load cap can leave the last layer partially filled, so use `perPallet` for the bucket count.
 - T06 · Added PaletScan form, engine, explanation and vision types, Romanian prompts and schemas, a result-based fallback, and the explanation route (`web/src/lib/{types,prompts,fallback,ai}.ts`, `web/src/app/api/ai/route.ts`). `npm run build` and `npm run typecheck` passed. Five HTTP checks passed against the built app with no key, covering suitable, unsuitable, input errors, malformed JSON and an invalid cycle shape. The configured-provider check also returned the correct fallback in 6.3 s.
@@ -12,10 +13,10 @@
 
 ## Blockers
 <!-- what you need, from whom (whose lane), since when -->
-- T08 (`gemini-silviu`) · Replace `placeholderAnalyze` in `DemoForm.tsx` with `import { analyze } from "@/lib/palletizer"` before desktop and phone checks. T07 (`codex-mihai`) owns the shared test records.
 
 ## AI log
 <!-- one line each: what a model got wrong or which prompt worked well · how it was caught · the fix -->
+- AI timing fix · Before, the 13:30 live record 1 question called 5.3 min the pallet change time even though the input was 4 min (QA observation recorded in `status/claude.md`). After explicitly passing and labeling both values, the live `gemini-3.1-flash-lite` summary said „timpul estimat de umplere a unui palet este de 5,3 minute, cu un timp de schimbare manuală a paletului de 4 minute”. Its follow-up question also used 4 min for manual change. Checked against `cycle.palletFillMin = 32 / 6` and `cycle.palletChangeMin = 4`.
 - T06b · Record 1 numeric audit. `32` buckets/pallet matches `pattern.perPallet` and `360` units/hour matches `cycle.bucketsPerHour`. Gemini reused `pattern.palletKg = 416` kg, the calculated bucket load per pallet, as a supposed payload limit. The question about keeping downtime „sub 20%” introduced a target absent from the engine result. `cycle.robotIdlePct` is approximately 18.92% estimated idle time, and the engine supplies no safety threshold.
 - T06b · Live sample from `gemini-3.1-flash-lite`. Summary „Evaluarea preliminară indică faptul că soluția este potrivită pentru paletizarea celor 32 de găleți pe palet, respectând limita de sarcină utilă de 416 kg. Capacitatea robotului depășește ritmul liniei actuale, acesta fiind factorul limitator (bottleneck) cu 360 de unități pe oră. Operațiunile de schimbare a paletului sunt optimizate, permițând continuitatea fluxului de producție.” Questions „Cum poate fi ajustat ritmul liniei pentru a exploata capacitatea suplimentară de paletizare a robotului?” „Ce măsuri de siguranță sunt necesare pentru menținerea timpului de nefuncționare al robotului sub 20%?” „Există variații în greutatea sau dimensiunea găleților care ar putea necesita recalibrarea sistemului de prindere?”
 - T30 · Ran the board's self-check with the temporary `tsx` CLI from npm. Project dependencies were unchanged.

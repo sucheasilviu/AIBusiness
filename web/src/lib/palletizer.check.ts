@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import testInputs from "../data/test-inputs.json";
 import { analyze } from "./palletizer";
+import { buildUserPrompt } from "./prompts";
 import type { PalletizerFormValues } from "./types";
 
 // DESCRIPTION §8 reference record while T07's shared fixture is being prepared.
@@ -35,6 +36,13 @@ assert.equal(baseline.pattern?.palletKg, 416);
 assert.equal(baseline.cycle?.bucketsPerHour, 360);
 assert.equal(baseline.cycle?.bottleneck, "linie");
 assert.equal(baseline.cycle?.changeOk, true);
+assert.ok(baseline.cycle);
+assert.equal(baseline.cycle.palletChangeMin, 4);
+const promptCycle = JSON.parse(buildUserPrompt(baseline)).cycle;
+assert.equal(promptCycle["timp estimat de umplere a unui palet (minute)"], 5.3);
+assert.equal(promptCycle["timp de schimbare manuală a paletului (minute)"], 4);
+const legacyResult = { ...baseline, cycle: { ...baseline.cycle, palletChangeMin: undefined } };
+assert.ok(!("timp de schimbare manuală a paletului (minute)" in JSON.parse(buildUserPrompt(legacyResult)).cycle));
 assert.equal(analyze({ ...reference, palletChangeMin: 32 / 6 }).cycle?.changeOk, false);
 assert.equal(analyze({ ...reference, bucketWeightKg: "9", lineRatePerMin: "8" }).cycle?.bottleneck, "echilibrat");
 assert.equal(analyze({ ...reference, bucketWeightKg: 15 }).verdict, "evaluare");
