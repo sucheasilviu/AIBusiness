@@ -1,26 +1,20 @@
 "use client";
 
-// Main demo screen: form -> deterministic engine -> /api/ai -> ResultView.
-// Owner: gemini-silviu (UI). Engine swap: T30 (codex-silviu's web/src/lib/palletizer.ts).
+// Main demo screen: form -> deterministic engine (palletizer.ts) -> /api/ai -> ResultView.
+// Owner: gemini-silviu (UI). Engine: codex-silviu (web/src/lib/palletizer.ts).
 import { useRef, useState } from "react";
 import ResultView from "@/components/ResultView";
 import testInputsRaw from "@/data/test-inputs.json";
 import { demo } from "@/lib/content";
-import type {
-  AiExplanation,
-  Criterion,
-  EngineResult,
-  FormField,
-  PalletizerFormValues,
-  Verdict,
-} from "@/lib/types";
+import { analyze } from "@/lib/palletizer";
+import type { AiExplanation, EngineResult, FormField, PalletizerFormValues } from "@/lib/types";
 
 const fieldMap = new Map<string, FormField>(demo.fields.map((f) => [f.name, f]));
 
 const emptyValues = (): Record<string, string> =>
   Object.fromEntries(demo.fields.map((f) => [f.name, f.name === "industry" ? "umpluturi" : ""]));
 
-// Built-in fictional fallback records used only until T07 updates src/data/test-inputs.json.
+// Built-in fictional fallback records used only if src/data/test-inputs.json lacks PaletScan keys.
 const FALLBACK_TEST_RECORDS: Record<string, string>[] = [
   {
     companyName: "Patiseria Demo SRL",
@@ -153,228 +147,6 @@ function getTestRecords(): Record<string, string>[] {
   return FALLBACK_TEST_RECORDS;
 }
 
-// TODO(T30): replace placeholderAnalyze with `import { analyze } from "@/lib/palletizer"` once codex-silviu pushes T30.
-function placeholderAnalyze(values: Record<string, string>): EngineResult {
-  const errors: string[] = [];
-
-  for (const f of demo.fields) {
-    if (f.required && !values[f.name]?.trim()) {
-      errors.push(`Lipsește câmpul obligatoriu: ${f.label}.`);
-    }
-  }
-
-  const weight = Number(values.bucketWeightKg);
-  const diameter = Number(values.bucketDiameterMm);
-  const height = Number(values.bucketHeightMm);
-  const lineRate = Number(values.lineRatePerMin);
-  const maxPalletH = Number(values.maxPalletHeightMm);
-  const changeMin = Number(values.palletChangeMin);
-  const shifts = Number(values.shiftsPerDay);
-
-  if (values.bucketWeightKg?.trim() && (!Number.isFinite(weight) || weight <= 0 || weight > 50)) {
-    errors.push("Greutatea găleții pline trebuie să fie între 0,1 și 50 kg.");
-  }
-  if (values.bucketDiameterMm?.trim() && (!Number.isFinite(diameter) || diameter < 150 || diameter > 500)) {
-    errors.push("Diametrul / latura găleții trebuie să fie între 150 și 500 mm.");
-  }
-  if (values.bucketHeightMm?.trim() && (!Number.isFinite(height) || height < 150 || height > 500)) {
-    errors.push("Înălțimea găleții trebuie să fie între 150 și 500 mm.");
-  }
-  if (values.lineRatePerMin?.trim() && (!Number.isFinite(lineRate) || lineRate <= 0 || lineRate > 30)) {
-    errors.push("Ritmul liniei trebuie să fie între 0,1 și 30 găleți/minut.");
-  }
-  if (values.maxPalletHeightMm?.trim() && (!Number.isFinite(maxPalletH) || maxPalletH <= 144)) {
-    errors.push("Înălțimea maximă a paletului încărcat trebuie să fie mai mare de 144 mm.");
-  }
-  if (values.palletChangeMin?.trim() && (!Number.isFinite(changeMin) || changeMin <= 0)) {
-    errors.push("Timpul de schimbare a paletului trebuie să fie mai mare de 0 minute.");
-  }
-
-  if (errors.length > 0) {
-    return { ok: false, errors, criteria: [] };
-  }
-
-  const criteria: Criterion[] = [];
-
-  // 1. Payload (UR20 20 kg - 5 kg gripper estimare = 15 kg usable; tested <= 13 kg at PURATOS)
-  if (weight > 15) {
-    criteria.push({
-      id: "payload",
-      label: "Sarcină utilă UR20",
-      status: "nepotrivit",
-      detail: `${weight} kg depășește sarcina utilă estimată de 15 kg (20 kg UR20 minus ~5 kg gripper).`,
-    });
-  } else if (weight > 13) {
-    criteria.push({
-      id: "payload",
-      label: "Sarcină utilă UR20",
-      status: "evaluare",
-      detail: `${weight} kg este în limita de 15 kg, dar peste greutatea de 13 kg testată la PURATOS.`,
-    });
-  } else {
-    criteria.push({
-      id: "payload",
-      label: "Sarcină utilă UR20",
-      status: "ok",
-      detail: `${weight} kg se încadrează în gama 5–13 kg testată la PURATOS.`,
-    });
-  }
-
-  // 2. Shape & handle
-  if (values.shape === "patrata" || values.handle === "fara") {
-    criteria.push({
-      id: "gripper",
-      label: "Prindere și formă găleată",
-      status: "evaluare",
-      detail: "Gălețile pătrate sau fără mâner necesită validarea tipului de gripper (vacuum / clește dedicat).",
-    });
-  } else {
-    criteria.push({
-      id: "gripper",
-      label: "Prindere și formă găleată",
-      status: "ok",
-      detail: "Găleată rotundă cu mâner, compatibilă cu prinderea testată pe celula UR20.",
-    });
-  }
-
-  // 3. Robot rate (PURATOS test results: 8.6/min at <=5 kg, 7.4/min at 13 kg)
-  let robotRate = 7.4;
-  if (weight <= 5) {
-    robotRate = 8.6;
-  } else if (weight < 13) {
-    robotRate = Number((8.6 - ((weight - 5) / 8) * (8.6 - 7.4)).toFixed(1));
-  }
-
-  const effectiveRate = Number(Math.min(lineRate, robotRate).toFixed(1));
-  const bottleneck: "linie" | "robot" | "echilibrat" =
-    lineRate > robotRate ? "robot" : lineRate < robotRate ? "linie" : "echilibrat";
-
-  if (bottleneck === "robot") {
-    criteria.push({
-      id: "rate",
-      label: "Ritm linie vs. robot",
-      status: "evaluare",
-      detail: `Linia (${lineRate}/min) depășește ritmul estimat al robotului (${robotRate}/min); poate fi necesar buffer sau a 2-a celulă.`,
-    });
-  } else {
-    criteria.push({
-      id: "rate",
-      label: "Ritm linie vs. robot",
-      status: "ok",
-      detail: `Robotul (${robotRate}/min, rezultat de test) acoperă ritmul liniei (${lineRate}/min).`,
-    });
-  }
-
-  // 4. Space & conveyor signals
-  if (values.twoPalletSpace !== "da") {
-    criteria.push({
-      id: "space",
-      label: "Spațiu 2 poziții paletizare",
-      status: "evaluare",
-      detail:
-        values.twoPalletSpace === "nu"
-          ? "Fără 2 poziții de paletizare, robotul se oprește la schimbarea paletului."
-          : "Este necesară verificarea spațiului disponibil pentru 2 poziții de palet.",
-    });
-  } else {
-    criteria.push({
-      id: "space",
-      label: "Spațiu 2 poziții paletizare",
-      status: "ok",
-      detail: "Există spațiu pentru 2 poziții, permițând schimbarea paletului fără oprire.",
-    });
-  }
-
-  if (values.conveyorSignals !== "da") {
-    criteria.push({
-      id: "signals",
-      label: "Semnale transportor",
-      status: "evaluare",
-      detail: "Semnalele de proces (start/stop) ale transportorului trebuie clarificate la discuția tehnică.",
-    });
-  } else {
-    criteria.push({
-      id: "signals",
-      label: "Semnale transportor",
-      status: "ok",
-      detail: "Transportorul dispune de semnale de proces pentru sincronizarea cu celula UR20.",
-    });
-  }
-
-  // Pallet geometry (simple square grid placeholder; T30 adds optimal staggered/offset layout)
-  const palletMm = values.palletType === "industrial" ? { l: 1200, w: 1000 } : { l: 1200, w: 800 };
-  const cols = Math.max(1, Math.floor(palletMm.l / diameter));
-  const rows = Math.max(1, Math.floor(palletMm.w / diameter));
-  const perLayer = cols * rows;
-  const sepMm = values.separator === "da" ? 5 : 0;
-  const maxByHeight = Math.max(1, Math.floor((maxPalletH - 144) / (height + sepMm)));
-  const maxByWeight = Math.max(1, Math.floor(1000 / (perLayer * weight)));
-  const layers = Math.max(1, Math.min(maxByHeight, maxByWeight));
-  const perPallet = perLayer * layers;
-  const palletKg = Math.round(perPallet * weight);
-
-  const positions: { x: number; y: number }[] = [];
-  const xStep = palletMm.l / cols;
-  const yStep = palletMm.w / rows;
-  for (let r = 0; r < rows; r++) {
-    for (let c = 0; c < cols; c++) {
-      positions.push({ x: Math.round((c + 0.5) * xStep), y: Math.round((r + 0.5) * yStep) });
-    }
-  }
-
-  const bucketsPerHour = Math.round(effectiveRate * 60);
-  const robotIdlePct = Math.max(0, Math.round(((robotRate - effectiveRate) / robotRate) * 100));
-  const palletFillMin = Number((perPallet / effectiveRate).toFixed(1));
-  const palletsPerShift = Number(((bucketsPerHour * 8) / perPallet).toFixed(1));
-  const changeOk = values.twoPalletSpace === "da" && changeMin < palletFillMin;
-
-  if (!changeOk && values.twoPalletSpace === "da") {
-    criteria.push({
-      id: "change",
-      label: "Schimbare palet",
-      status: "evaluare",
-      detail: `Schimbarea (${changeMin} min) depășește timpul de umplere al unui palet (${palletFillMin} min).`,
-    });
-  }
-
-  const verdict: Verdict = criteria.some((c) => c.status === "nepotrivit")
-    ? "nepotrivit"
-    : criteria.some((c) => c.status === "evaluare")
-      ? "evaluare"
-      : "potrivit";
-
-  // Silence unused shifts variable until T30 uses it
-  void shifts;
-
-  return {
-    ok: true,
-    errors: [],
-    verdict,
-    criteria,
-    pattern: {
-      perLayer,
-      layers,
-      perPallet,
-      palletKg,
-      layout: "grid",
-      positions,
-      palletMm,
-      bucketMm: diameter,
-    },
-    cycle: {
-      lineRate,
-      robotRate,
-      effectiveRate,
-      bucketsPerHour,
-      bottleneck,
-      robotIdlePct,
-      palletFillMin,
-      palletsPerShift,
-      changeOk,
-    },
-  };
-}
-
 export default function DemoForm() {
   const [values, setValues] = useState<Record<string, string>>(emptyValues);
   const [testIndex, setTestIndex] = useState<number>(-1);
@@ -408,7 +180,7 @@ export default function DemoForm() {
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const result = placeholderAnalyze(values);
+    const result = analyze(values as PalletizerFormValues);
     setEngineResult(result);
     setExplanation(null);
     setExplanationError(null);

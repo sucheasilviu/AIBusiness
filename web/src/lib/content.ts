@@ -6,9 +6,9 @@ import type { FormField } from "./types";
 export const site = {
   name: "PaletScan UR20",
   team: "Sick7",
-  tagline: "Fotografiază găleata. Vezi paletul. Cere oferta.",
+  tagline: "Datele găleții. Paletul tău. Cererea gata.",
   description:
-    "Fotografiezi găleata, vezi paletul și afli dacă UR20 se potrivește liniei tale de ingrediente pentru panificație și cofetărie.",
+    "Introduci datele găleții și ale liniei, vezi paletul și afli dacă UR20 se potrivește liniei tale de ingrediente pentru panificație și cofetărie.",
   nav: [
     { href: "/#problema", label: "Problema" },
     { href: "/#cum-functioneaza", label: "Cum funcționează" },
@@ -21,7 +21,7 @@ export const site = {
 export const landing = {
   hero: {
     eyebrow: "Ingrediente de panificație și cofetărie · Celulă UR20",
-    title: "Fotografiază găleata. Vezi paletul. Cere oferta.",
+    title: "Datele găleții. Paletul tău. Cererea gata.",
     subtitle:
       "Află direct de pe telefon dacă o celulă de paletizare UR20 se potrivește liniei tale de umpluturi, creme, glazuri sau amelioratori în găleți de 5–13 kg.",
     secondaryCta: { href: "/#cum-functioneaza", label: "Cum funcționează" },
@@ -65,8 +65,8 @@ export const landing = {
     subtitle: "Trei pași simpli, direct de pe telefon. Nu ai nevoie de cont.",
     items: [
       {
-        title: "Fotografiezi găleata și completezi datele liniei",
-        text: "AI-ul sugerează forma, mânerul și materialul; tu confirmi sau corectezi fiecare sugestie și introduci greutatea, dimensiunile și ritmul liniei.",
+        title: "Introduci datele găleții și ale liniei",
+        text: "Completezi greutatea, dimensiunile, forma, mânerul și ritmul liniei (recunoașterea automată din fotografie — în curând).",
       },
       {
         title: "Motorul de reguli calculează paletul și ritmul",
@@ -125,7 +125,7 @@ export const landing = {
       },
     ],
     disclaimer:
-      "Rezultate de test, nu garanții. AI-ul nu decide verdictul și nu măsoară greutatea sau dimensiunile din fotografie.",
+      "Rezultate de test, nu garanții. AI-ul explică rezultatul și propune întrebări, dar verdictul și cifrele vin din reguli fixe.",
   },
   finalCta: {
     title: "Verifică linia ta în mai puțin de un minut",
@@ -384,7 +384,7 @@ export const howToTest = {
   title: "Cum testezi (sub 1 minut)",
   steps: [
     "Apasă „Verifică linia ta” pentru a deschide pagina de evaluare.",
-    "Apasă „Completează cu date de test” (sau folosește poza de test).",
+    "Apasă „Completează cu date de test” pentru a încărca un caz fictiv.",
     "Apasă „Analizează linia” și citește verdictul, desenul paletului și ritmul.",
     "Apasă „Pregătește cererea” pentru a copia rezumatul tehnic.",
   ],
