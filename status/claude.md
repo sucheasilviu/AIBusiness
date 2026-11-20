@@ -12,6 +12,7 @@
 ## AI log
 <!-- one line each: what a model got wrong or which prompt worked well · how it was caught · the fix -->
 - Claude proposed a segment covering 3 industries (bakery, dairy, paints/construction) · the mentor said to focus on one industry's problem; on re-check, paint/plaster buckets are often above the UR20's usable load · narrowed to bakery ingredients (PURATOS's own industry)
+- 13:30 live /api/ai (gemini-3.1-flash-lite), test record 1: numbers 32 buckets/pallet, 416 kg, 19% robot idle all match the engine; BUT a question calls 5.3 min a "pallet change" time; 5.3 min is the pallet FILL time (32 ÷ 6/min), the change time entered was 4 min · caught by checking each AI number against the EngineResult · fix: prompt must label palletFillMin vs palletChangeMin explicitly (codex-silviu)
 - Gemini (graphify repo map) returned nodes for only 10 of 43 docs and said nothing about the rest · caught by graphify's coverage warning · retried once, then used only for the code map
 
 ## Checkpoint log
