@@ -3,3 +3,5 @@ PaletScan UR20 · https://demo.sick7.tech/demo
 Cum testezi
 1. „Completează cu date de test” → „Analizează linia”.
 2. Apasă din nou pe „Completează cu date de test” până la cazul cu date greșite → „Analizează linia” → apare lista de erori.
+
+Cod echipă: SYSUP006SS (Sick7)
