@@ -1,24 +1,22 @@
-# [Nume soluție] — Strategie
+# PaletScan UR20 — Strategie
 **Echipa Sick7 · [cod echipă] · AI Business Challenge 2026**
-> Owner: `gemini-mihai`, revizuit de `claude`. Exact o pagină. Nu schimbați titlurile secțiunilor (le caută comisia).
-> Cifrele se copiază din business/financial-summary.md. Faptele PURATOS sunt rezultate de test, nu garanții. Ștergeți rândurile cu „>” înainte de export.
 
 ## Problema
-[Problema de producție a segmentului ales: paletizarea manuală a găleților, efort repetitiv, ritm; ce arată cazul PURATOS (fapte vs. ipoteze).]
+La producătorii români de ingrediente pentru panificație și cofetărie (umpluturi, creme, glazuri, amelioratori), produsul iese în găleți de 5 kg și 13 kg, paletizate frecvent manual. La PURATOS lucrau 2 operatori/tură, 2–3 ture/zi (studiu de caz); la 6 găleți/min × 13 kg rezultă ~4,7 t/oră ridicate manual (calcul), într-un sector agroalimentar românesc cu −11,7% forță de muncă (Eurostat/INS). Directorul de producție nu poate verifica rapid compatibilitatea UR20 fără vizită tehnică, iar Tech-Con pierde timp cu cereri incomplete.
 
 ## Publicul vizat: segment și decident
-[Tipul de fabrică din România care folosește găleți, câte sunt și unde; decidentul (ex. director de producție, responsabil de investiții) și cine influențează decizia.]
+**Segment prioritar (T1):** producătorii din România de ingrediente de panificație/cofetărie la găleți de 5–13 kg — aceeași industrie ca PURATOS (~25–45 fabrici locale CAEN 1089/1072, estimare; ex. Dr. Oetker, Orkla, Rompak, Zeelandia, Eurocas). **Extindere T2 (scalare):** fabrici alimentare adiacente cu găleți de 5–13 kg (lactate, sosuri, gemuri; +120–180 fabrici, estimare → ~150–225 fabrici, cu validare tehnică separată). **Decident:** directorul de producție/fabrică; **avizează** directorul de investiții. Clientul cumpără celula UR20 (**130.000 EUR** fără TVA); **PaletScan UR20** este gratuit (instrument de pre-calificare Tech-Con).
 
 ## Soluția
-[Celula de paletizare UR20 a Tech-Con și instrumentul nostru web: ce face funcția principală pentru client și unde duce (cerere de evaluare tehnică / demonstrație).]
+Tech-Con livrează celula integrată UR20 (braț UR20, gripper pneumatic, viziune 2D SICK pt. mâner, 3 scannere siguranță, instalare, instruire; schimbarea paleților și separatoarele rămân manuale). La PURATOS s-au testat 7,4 găleți/min (13 kg, 44/palet) și 8,6/min (5 kg, 100/palet), față de ținta ≥ 6/min (*rezultate de test, nu garanții*). **PaletScan UR20** este o aplicație web pentru telefon unde clientul introduce datele găleții, paletului și ritmul liniei; un motor determinist verifică limitele UR20, desenează modelul de paletizare, indică blocajul (linie vs. robot) și acordă verdictul (**Potrivit**, **Necesită evaluare**, **Nepotrivit**), completat de explicația AI în română și 3 întrebări tehnice. Rezultatul generează o cerere structurată (simulată în prototip) pentru inginerul Tech-Con.
 
 ## Atragerea clienților
-[Canalele digitale alese și repartizarea celor 30.000 EUR; mesajul și unde ajunge clientul; ce testăm întâi și când mutăm bani; cereri relevante → întâlniri tehnice → comenzi.]
+Bugetul anual de **30.000 EUR** (1 ian.–31 dec., fără dublări): **Google Search 7.000** · **LinkedIn 6.000** · **Conținut UR20 4.500** (caz/video PURATOS cu acord) · **PaletScan + SEO/AI 3.500** · **Webinarii & demo 3.000** (inclusiv GastroPan/ROMPAN) · **Marketing direct legitim + CRM 2.500** (B2B personalizat, client unic) · **Teste YouTube 1.000** · **Rezervă 2.500**. Mesajul („Verifică linia ta”) duce în PaletScan pentru **cereri relevante** (firmă din segment + date tehnice, nu simple click-uri). **Funnel (estimare):** **170 cereri** (≈ **176 EUR/cerere**) → **68 întâlniri tehnice** (40%) → **17 clienți** (25%; ≈ **1.765 EUR/client**) × **1,5 celule/client** (estimare; PURATOS: 2) = **25 celule**. La 6 săptămâni dublăm canalele sub țintă și tăiem ce nu aduce cereri, realocând rezerva.
 
 ## Scalarea la nivel național
-[De unde începem (Tech-Con: Dragomirești-Deal, Iași, Timișoara) și cum extindem acoperirea; cum susținem demonstrațiile, evaluarea tehnică, livrarea și service-ul.]
+Începem din **Dragomirești-Deal** (Sud + proximitate PURATOS) și extindem prin **Iași** (Est) și **Timișoara** (Vest). Susținem **25 celule/an** prin pre-calificare PaletScan (răspuns în 48 h), celulă demo & webinarii, asamblare modulară (~4 luni livrare, ~6–7/trimestru) și service din cele 3 hub-uri. **Financiar (EUR fără TVA, 1 ian.–31 dec.):** 130.000 − 110.000 = **20.000 EUR contribuție/celulă**; cu 30.000 promovare, **50.000 alte costuri (estimare)** și **16% impozit**, ținta de **300.000 EUR profit net** cere **22 celule** (302.400 net). Cu rezerva comercială (+3 / ~14%), planificăm **25 celule**: venit **3.250.000**, cost direct **2.750.000**, rezultat după promovare **470.000**, profit net **352.800 EUR** (estimare). De verificat: costurile fixe Tech-Con alocate liniei (vânzări, inginerie, service, capital).
 
 ## Trei pași de implementare
-1. **[Perioada] — [pas]:** [ce livrăm, indicatorul de succes]
-2. **[Perioada] — [pas]:** […]
-3. **[Perioada] — [pas]:** […; celule necesare: …, ultima lună de comandă: …]
+1. **Ian.–feb. (Lansare panificație):** publicăm PaletScan, conținutul UR20 și Google/LinkedIn pe ingrediente panificație (Dragomirești-Deal); țintă: **40 cereri**, **16 întâlniri** (estimare).
+2. **Mar.–mai (Optimizare & scalare T2):** tăiem canalele slabe, activăm rezerva de 2.500 EUR, rulăm webinarii/demo (Iași, Timișoara, GastroPan) și deschidem spre lactate, sosuri, gemuri; țintă cumulată: **120 cereri**, **48 întâlniri**, **10 clienți** (estimare).
+3. **Iun.–aug. comenzi / sep.–dec. livrări:** închidem comenzile până în **august** (livrare ~4 luni) pentru **17 clienți / 25 celule** (**22 necesare** pt. 300.000 EUR net, +3 rezervă), livrate până la 31 dec.
