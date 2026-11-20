@@ -5,7 +5,7 @@
 
 ## 1. Identity
 - **Name:** PaletScan UR20
-- **One-liner (RO, max 12 words):** Fotografiezi găleata, vezi paletul și afli dacă UR20 se potrivește liniei tale.
+- **One-liner (RO, max 12 words):** Introduci datele găleții, vezi paletul și afli dacă UR20 se potrivește. *(13:08: photo scanning cut; it may appear only as „în curând”.)*
 - **Industry focus:** Romanian producers of **bakery and pastry ingredients** (fillings, creams, glazes, improvers) packed in 5–13 kg buckets. This is PURATOS's own industry, so the PURATOS test results are the reference a prospect recognises. Other bucket industries come only as the national-scaling step.
 - **How it answers today's brief:** a phone-friendly tool that helps an industrial client **understand, evaluate and request** a UR20 bucket-palletizing cell like the PURATOS one. Its output is a **relevant request** (segment + palletizing need + enough data for a technical discussion), which is exactly the unit our 30,000 EUR acquisition funnel is measured on.
 
@@ -140,4 +140,4 @@ All EUR excl. VAT, calendar year 1 Jan–31 Dec. "(estimare)" = team assumption;
 - Measuring weight or dimensions from the photo.
 
 ## 14. Brand
-- Accent colour: **#E8590C** (industrial orange) on slate #1E293B · Tone: practical, engineer to production director, short sentences, no hype · Tagline (RO): **„Fotografiază găleata. Vezi paletul. Cere oferta.”** · CTA (RO): **„Verifică linia ta”**
+- Accent colour: **#E8590C** (industrial orange) on slate #1E293B · Tone: practical, engineer to production director, short sentences, no hype · Tagline (RO): **„Datele găleții. Paletul tău. Cererea gata.”** · CTA (RO): **„Verifică linia ta”**
