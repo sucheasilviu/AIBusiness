@@ -24,7 +24,9 @@ Toate valorile sunt în EUR fără TVA, pentru un an calendaristic (1 ianuarie�
 | Rezervă | 2.500 | 0 | Se realocă după evaluarea costului pe cerere relevantă. |
 | **Total** | **30.000** | **170** | |
 
-Cele 170 de cereri estimate sunt repartizate proporțional cu bugetul activ, cu rotunjire la cereri întregi. Fiecare firmă se numără o singură dată.
+Cele 170 de cereri estimate sunt repartizate proporțional cu bugetul activ, cu rotunjire la cereri întregi. Repartizarea este o ipoteză de planificare. Conținutul UR20 și pagina PaletScan susțin în principal conversia vizitatorilor atrași prin Google Search, LinkedIn și marketing direct. Fiecare firmă se numără o singură dată.
+
+Costul mediu estimat pe cerere este de aproximativ 162 EUR din bugetul activ de 27.500 EUR și de 176 EUR din bugetul total de 30.000 EUR, care include rezerva de 2.500 EUR.
 
 ## Rezultate (scenariu de bază)
 | Indicator | Valoare |
