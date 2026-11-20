@@ -3,6 +3,7 @@
 // Renders the PaletScan UR20 engine result, AI explanation and copyable request summary.
 // Owner: gemini-silviu.
 import { useState } from "react";
+import PalletView from "@/components/PalletView";
 import { demo } from "@/lib/content";
 import type { AiExplanation, EngineResult, PalletizerFormValues, Verdict } from "@/lib/types";
 
@@ -173,35 +174,14 @@ export default function ResultView({
         </section>
       )}
 
-      {/* Pallet summary (T32 PalletView plugs in here) */}
+      {/* Pallet drawing & summary (T32) */}
       {engine.pattern && (
-        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <h4 className="text-base font-bold text-ink">{r.palletTitle}</h4>
-            <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-muted">
-              {engine.pattern.layout === "offset" ? r.palletMetrics.layoutOffset : r.palletMetrics.layoutGrid} ·{" "}
-              {engine.pattern.palletMm.l}×{engine.pattern.palletMm.w} mm
-            </span>
-          </div>
-          <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <div className="rounded-xl bg-slate-50 p-3 text-center ring-1 ring-slate-200/70">
-              <div className="text-xl font-extrabold text-ink">{engine.pattern.perLayer}</div>
-              <div className="mt-0.5 text-xs text-muted">{r.palletMetrics.perLayer}</div>
-            </div>
-            <div className="rounded-xl bg-slate-50 p-3 text-center ring-1 ring-slate-200/70">
-              <div className="text-xl font-extrabold text-ink">{engine.pattern.layers}</div>
-              <div className="mt-0.5 text-xs text-muted">{r.palletMetrics.layers}</div>
-            </div>
-            <div className="rounded-xl bg-brand-soft p-3 text-center ring-1 ring-brand/20">
-              <div className="text-xl font-extrabold text-brand-dark">{engine.pattern.perPallet}</div>
-              <div className="mt-0.5 text-xs text-brand-dark">{r.palletMetrics.perPallet}</div>
-            </div>
-            <div className="rounded-xl bg-slate-50 p-3 text-center ring-1 ring-slate-200/70">
-              <div className="text-xl font-extrabold text-ink">{engine.pattern.palletKg} kg</div>
-              <div className="mt-0.5 text-xs text-muted">{r.palletMetrics.palletKg}</div>
-            </div>
-          </div>
-        </section>
+        <PalletView
+          pattern={engine.pattern}
+          bucketHeightMm={Number(input.bucketHeightMm) || 300}
+          shape={input.shape === "patrata" ? "patrata" : "rotunda"}
+          hasSeparator={input.separator === "da"}
+        />
       )}
 
       {/* Cycle summary (T33 CycleView plugs in here) */}

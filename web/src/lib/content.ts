@@ -222,6 +222,11 @@ export const demo = {
       palletKg: "Greutate palet",
       layoutGrid: "Așezare: grilă",
       layoutOffset: "Așezare: decalat",
+      topView: "Vedere de sus (un strat)",
+      sideView: "Vedere laterală (straturi)",
+      palletBase: "Palet (144 mm)",
+      totalHeight: "Înălțime estimată",
+      emptyPallet: "Niciun strat nu încape la dimensiunile introduse.",
     },
     cycleTitle: "Ritm linie vs. robot UR20",
     cycleMetrics: {
