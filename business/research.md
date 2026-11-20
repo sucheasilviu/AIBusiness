@@ -46,13 +46,13 @@
 - Avantajul comercial nu este „cel mai mic preț”, ci **soluția deja validată pe găleți de 5 kg și 13 kg în industria de ingrediente (PURATOS)**, amprenta compactă colaborativă și pre-evaluarea rapidă prin **PaletScan UR20**.
 
 ## 5. Canale de atragere a clienților (buget total: 30.000 EUR/an, DESCRIPTION §12)
-| Canal | Buget propus (EUR) | Cost unitar estimat (RO) | Rezultat așteptat (An 1, estimare) |
+| Canal | Buget propus (EUR) | Cost unitar estimat (RO) | Rezultat așteptat (An 1, estimare — aliniat `financial-summary.md`) |
 |---|---|---|---|
-| **Google Search** („robot paletizare găleți”, „paletizare automată”) | 7.000 | CPC **0,80–3,50 EUR** [[S11]](#6-surse) | ~2.800–4.500 click-uri → ~55–65 cereri relevante |
-| **LinkedIn Ads** (directori producție/fabrică industrie alimentară RO) | 6.000 | CPC **6,00–14,00 EUR** [[S11]](#6-surse) | ~600–850 click-uri țintite → ~35–45 cereri relevante |
-| **Conținut UR20 + PaletScan + SEO/AI** | 8.000 (4,5k + 3,5k) | Producție video/caz + pagină web | Crește conversia în cereri + trafic organic (~25 cereri) |
-| **Webinarii, demonstrații & târguri (ex. GastroPan/ROMPAN)** | 3.000 | Participare / webinar B2B | ~25–30 cereri calificate cu intenție ridicată |
-| **Direct marketing legitim + CRM + teste YouTube + rezervă** | 6.000 (2,5k + 1k + 2,5k) | Contactare B2B țintită + retargeting | ~20–25 cereri; rezervă 2.500 EUR pentru scalarea canalului câștigător |
+| **Google Search** („robot paletizare găleți”, „paletizare automată”) | 7.000 | CPC **0,80–3,50 EUR** [[S11]](#6-surse) | **43 cereri relevante** |
+| **LinkedIn Ads** (directori producție/fabrică industrie alimentară RO) | 6.000 | CPC **6,00–14,00 EUR** [[S11]](#6-surse) | **37 cereri relevante** |
+| **Conținut UR20 (4.500) + PaletScan & SEO/AI (3.500)** | 8.000 | Producție video/caz + pagină web | **50 cereri relevante** (28 + 22; alocare proporțională model) |
+| **Webinarii, demonstrații & târguri (ex. GastroPan/ROMPAN)** | 3.000 | Participare / webinar B2B | **19 cereri relevante** |
+| **Direct marketing legitim + CRM (2.500) + teste YouTube (1.000) + rezervă (2.500)** | 6.000 | Contactare B2B țintită + retargeting | **21 cereri relevante** (15 + 6 + 0 din rezervă înainte de realocare) |
 | **Total (țintă model §12)** | **30.000** | **~176 EUR / cerere relevantă** | **170 cereri → 68 întâlniri (40%) → 17 clienți (25%)** |
 
 ## 6. Surse
