@@ -1,7 +1,7 @@
 // Server-side Gemini call with a safety net. Owner: codex-silviu.
 // Import this only from route handlers (src/app/api/**): it reads GEMINI_API_KEY.
 //
-// Order of attempts: GEMINI_MODEL (if set) -> gemini-3.5-flash-lite -> gemini-flash-latest.
+// Try GEMINI_MODEL first when set, then 3.1 Flash-Lite, 3.5 Flash-Lite and Flash Latest.
 // Each attempt has a timeout; the whole call has a deadline. If everything fails,
 // the user still gets a Romanian explanation generated from the engine result.
 
@@ -11,11 +11,11 @@ import { RESULT_JSON_SCHEMA, SYSTEM_PROMPT, buildUserPrompt } from "./prompts";
 import type { AiExplanation, EngineResult } from "./types";
 
 // Leave time for rendering within the demo's ten-second target.
-const ATTEMPT_TIMEOUT_MS = 5_500;
-const TOTAL_DEADLINE_MS = 8_000;
+const ATTEMPT_TIMEOUT_MS = 8_000;
+const TOTAL_DEADLINE_MS = 9_000;
 
 function modelChain(): string[] {
-  const chain = [process.env.GEMINI_MODEL, "gemini-3.5-flash-lite", "gemini-flash-latest"];
+  const chain = [process.env.GEMINI_MODEL, "gemini-3.1-flash-lite", "gemini-3.5-flash-lite", "gemini-flash-latest"];
   return [...new Set(chain.filter((m): m is string => Boolean(m && m.trim())))];
 }
 
