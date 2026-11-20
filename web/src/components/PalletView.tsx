@@ -24,8 +24,9 @@ export default function PalletView({
   const m = demo.result.palletMetrics;
   const { palletMm, bucketMm, positions, perLayer, layers, perPallet, palletKg, layout } = pattern;
 
-  const pad = 60;
-  const topW = palletMm.l + pad * 2;
+  const pad = 64;
+  const padLeft = 96;
+  const topW = palletMm.l + padLeft + pad;
   const topH = palletMm.w + pad * 2;
   const radius = Math.max(10, bucketMm / 2 - 4);
 
@@ -84,7 +85,7 @@ export default function PalletView({
             >
               {/* Pallet footprint */}
               <rect
-                x={pad}
+                x={padLeft}
                 y={pad}
                 width={palletMm.l}
                 height={palletMm.w}
@@ -97,9 +98,9 @@ export default function PalletView({
               {[0.2, 0.4, 0.6, 0.8].map((ratio) => (
                 <line
                   key={ratio}
-                  x1={pad + 12}
+                  x1={padLeft + 12}
                   y1={pad + palletMm.w * ratio}
-                  x2={pad + palletMm.l - 12}
+                  x2={padLeft + palletMm.l - 12}
                   y2={pad + palletMm.w * ratio}
                   stroke="#e2e8f0"
                   strokeWidth={6}
@@ -110,7 +111,7 @@ export default function PalletView({
                 shape === "patrata" ? (
                   <rect
                     key={`${pos.x}-${pos.y}-${idx}`}
-                    x={pad + pos.x - radius}
+                    x={padLeft + pos.x - radius}
                     y={pad + pos.y - radius}
                     width={radius * 2}
                     height={radius * 2}
@@ -122,7 +123,7 @@ export default function PalletView({
                 ) : (
                   <g key={`${pos.x}-${pos.y}-${idx}`}>
                     <circle
-                      cx={pad + pos.x}
+                      cx={padLeft + pos.x}
                       cy={pad + pos.y}
                       r={radius}
                       fill="#fff4ed"
@@ -130,7 +131,7 @@ export default function PalletView({
                       strokeWidth={10}
                     />
                     <circle
-                      cx={pad + pos.x}
+                      cx={padLeft + pos.x}
                       cy={pad + pos.y}
                       r={radius * 0.62}
                       fill="none"
@@ -143,7 +144,7 @@ export default function PalletView({
               )}
               {/* Dimension labels */}
               <text
-                x={pad + palletMm.l / 2}
+                x={padLeft + palletMm.l / 2}
                 y={topH - 14}
                 textAnchor="middle"
                 fontSize={44}
@@ -153,13 +154,13 @@ export default function PalletView({
                 {palletMm.l} mm
               </text>
               <text
-                x={20}
+                x={42}
                 y={pad + palletMm.w / 2}
                 textAnchor="middle"
                 fontSize={40}
                 fontWeight={600}
                 fill="#475569"
-                transform={`rotate(-90 20 ${pad + palletMm.w / 2})`}
+                transform={`rotate(-90 42 ${pad + palletMm.w / 2})`}
               >
                 {palletMm.w} mm
               </text>
