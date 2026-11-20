@@ -6,7 +6,7 @@ Codex loads AGENTS.md automatically; read this file too at the start of each ses
 - One task per prompt. Read only the files the task names.
 - Make the change, run the check, report in at most 5 lines. No long explanations.
 - Default reasoning effort; raise it only for a hard bug.
-- Your sandbox: `.git` is read-only and network access is off by default. Don't commit. If you really need `npm install`, ask your human to approve it (and write why in your status file).
+- Your sandbox: you have git access: commit and push your own task files as described in AGENTS.md "Git". If you really need `npm install`, ask your human to approve it (and write why in your status file).
 
 ## codex-silviu: app logic (laptop A)
 - Files: `web/src/lib/types.ts`, `prompts.ts`, `fallback.ts`, `ai.ts`, `fake-data.ts`, and `web/src/app/api/**`.

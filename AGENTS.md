@@ -12,7 +12,7 @@ Your human tells you your ID at the start of the session. If you don't know it, 
 | `codex-mihai` | Codex | B | business/financial-model.xlsx, business/financial-summary.md, web/src/data/** | numbers, spreadsheet, test data |
 | `gemini-mihai` | Antigravity | B | business/research.md, business/strategy.md, business/promo-brief.md, business/promo/** | web research, Romanian business writing, visuals |
 
-Everyone also edits **only their own** `status/<ID>.md`. Humans own CHALLENGE.md §0, submission/** and git.
+Everyone also edits **only their own** `status/<ID>.md`. Humans own CHALLENGE.md §0 and submission/**. Each agent commits and pushes its own work (see Git).
 
 ## Before every task
 1. `TASKS.md`: take the first **TODO** task with your ID whose "After" tasks are DONE.
@@ -27,7 +27,8 @@ Read only what the task needs. Don't scan the whole repo.
 3. Check your work against the Definition of done (below).
 4. Update `status/<ID>.md`: move the task to **Done** with the files changed, how you checked them, and anything the next agent needs to know.
 5. If a model got something wrong and it was caught, or a prompt worked especially well, add one line to **AI log**: what happened, how it was caught, the fix. This feeds the Jurnal AI, which is worth points.
-6. Tell your human in one line: `T## done: <summary>`. Then stop. Never start unassigned work.
+6. Commit and push (see Git).
+7. Tell your human in one line: `T## done: <summary>`. Then stop. Never start unassigned work.
 
 Never edit TASKS.md (only `claude` does). Never edit another agent's status file.
 
@@ -37,8 +38,15 @@ Never edit TASKS.md (only `claude` does). Never edit another agent's status file
 - **Research:** every number has a source link, or is marked "(estimare)". Never present an invented fact as real.
 
 ## Git
-- **Humans run git** (commit, pull, push). Agents don't, unless their human asks.
-- Codex: `.git` is read-only in your sandbox, so never try to commit.
+- **Each agent commits and pushes its own work** when a task is done (task protocol step 6):
+  1. `git pull --rebase --autostash`
+  2. `git add <only the files you changed in this task> status/<ID>.md` (never `git add -A` or `git add .`: other agents share this folder)
+  3. `git commit -m "T##: <summary>"`
+  4. If you changed `web/`: `npm run build` in `web/` must pass first. Red build → don't push; write a blocker.
+  5. `git push`. Rejected → pull --rebase again, then push. Once.
+- A conflict in a file you don't own, or a failed rebase: `git rebase --abort`, write it under **Blockers**, tell your human. Never force-push, never `reset --hard`, never resolve someone else's file.
+- `index.lock` exists: another agent is running git. Wait 10 seconds and retry.
+- After 14:15 nobody pushes.
 - Don't rename, move or delete files you don't own.
 
 ## Code rules (web/)

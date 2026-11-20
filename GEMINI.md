@@ -6,7 +6,7 @@ Antigravity loads this file **and** AGENTS.md automatically. Follow both. Your h
 - **Model:** a fast Gemini model (Flash) for edits, copy and research; Gemini Pro for multi-file UI work. Claude models inside Antigravity burn quota fastest: leave them for the fallback leader (APPROACH.md).
 - **Mode:** Fast for single-file tasks; Planning only for tasks touching more than 3 files. Keep plans short. We have 3 hours, not 3 days.
 - One task per conversation. Start a new conversation when a task is done.
-- You may run `npm run dev`, `npm run build` and `npm run typecheck` inside `web/`. Don't run git unless your human asks.
+- You may run `npm run dev`, `npm run build` and `npm run typecheck` inside `web/`. Commit and push your own task files as described in AGENTS.md "Git".
 
 ## gemini-silviu: UI/UX + QA (laptop A)
 - Build pages and components from DESCRIPTION.md §6–7 and §14. All copy goes in `web/src/lib/content.ts`; components only read from it.
