@@ -28,6 +28,10 @@ const CRITERION_STYLES: Record<"ok" | "evaluare" | "nepotrivit", string> = {
   nepotrivit: "bg-red-50 text-red-700 ring-red-200",
 };
 
+function fmt(n: number, decimals = 1): string {
+  return Number.isInteger(n) ? String(n) : n.toFixed(decimals).replace(/\.0+$/, "");
+}
+
 function labelOf(value: string | number | undefined): string {
   if (value === undefined || value === "") return "—";
   const key = String(value);
@@ -204,28 +208,28 @@ export default function ResultView({
             <div className="rounded-xl bg-slate-50 p-3 ring-1 ring-slate-200/70">
               <div className="text-xs text-muted">{r.cycleMetrics.lineRate}</div>
               <div className="mt-0.5 text-lg font-extrabold text-ink">
-                {engine.cycle.lineRate}{" "}
+                {fmt(engine.cycle.lineRate)}{" "}
                 <span className="text-xs font-normal text-muted">{r.cycleMetrics.unitPerMin}</span>
               </div>
             </div>
             <div className="rounded-xl bg-slate-50 p-3 ring-1 ring-slate-200/70">
               <div className="text-xs text-muted">{r.cycleMetrics.robotRate}</div>
               <div className="mt-0.5 text-lg font-extrabold text-brand-dark">
-                {engine.cycle.robotRate}{" "}
+                {fmt(engine.cycle.robotRate)}{" "}
                 <span className="text-xs font-normal text-muted">{r.cycleMetrics.unitPerMin}</span>
               </div>
             </div>
             <div className="rounded-xl bg-slate-50 p-3 ring-1 ring-slate-200/70">
               <div className="text-xs text-muted">{r.cycleMetrics.bucketsPerHour}</div>
               <div className="mt-0.5 text-lg font-extrabold text-ink">
-                {engine.cycle.bucketsPerHour}{" "}
+                {Math.round(engine.cycle.bucketsPerHour)}{" "}
                 <span className="text-xs font-normal text-muted">{r.cycleMetrics.unitPerHour}</span>
               </div>
             </div>
             <div className="rounded-xl bg-slate-50 p-3 ring-1 ring-slate-200/70">
               <div className="text-xs text-muted">{r.cycleMetrics.palletFill}</div>
               <div className="mt-0.5 text-lg font-extrabold text-ink">
-                {engine.cycle.palletFillMin}{" "}
+                {fmt(engine.cycle.palletFillMin)}{" "}
                 <span className="text-xs font-normal text-muted">{r.cycleMetrics.unitMin}</span>
               </div>
             </div>
@@ -233,10 +237,10 @@ export default function ResultView({
 
           <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-xs text-muted">
             <span>
-              {r.cycleMetrics.robotIdle}: <strong className="text-ink">{engine.cycle.robotIdlePct}%</strong>
+              {r.cycleMetrics.robotIdle}: <strong className="text-ink">{Math.round(engine.cycle.robotIdlePct)}%</strong>
             </span>
             <span>
-              {r.cycleMetrics.palletsPerShift}: <strong className="text-ink">{engine.cycle.palletsPerShift}</strong>
+              {r.cycleMetrics.palletsPerShift}: <strong className="text-ink">{fmt(engine.cycle.palletsPerShift)}</strong>
             </span>
             <span className={engine.cycle.changeOk ? "text-emerald-700" : "text-amber-800 font-medium"}>
               {engine.cycle.changeOk ? r.cycleMetrics.changeOk : r.cycleMetrics.changeWarn}

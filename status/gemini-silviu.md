@@ -15,5 +15,6 @@
 
 ## AI log
 <!-- one line each: what a model got wrong or which prompt worked well · how it was caught · the fix -->
+- Unrounded floats from `palletizer.ts` (`palletFillMin: 5.333333333333333`, `robotIdlePct: 18.9189...%`) overflowed the cycle card in `/demo` · Caught by browser QA on `localhost:3000/demo` (test record 1) · Added `fmt()` rounding in `ResultView.tsx` so cycle metrics display cleanly (1 decimal / integer %).
 - Decoupled landing page hero preview from `ResultView`/`fallbackResult` · Caught when `codex-silviu` started refactoring `types.ts`/`ai.ts` in parallel (T06) · Kept `/` self-contained with static copy from `content.ts` and an inline SVG schematic so parallel work doesn't break the landing page.
 
