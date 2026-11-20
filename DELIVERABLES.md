@@ -12,9 +12,12 @@ File names: follow the organizer instructions in CHALLENGE.md §0 if they differ
 | 6 | Pitch și demonstrație | 10 / 20 | claude (app) | business/pitch-script.md | `06_Pitch_Sick7.pptx` (+ `.pdf`) | ☐ |
 
 ## Done checks
+- [ ] The package contains the team code and instructions (brief's hand-in checklist)
+- [ ] Statements about PURATOS separate facts from assumptions and refer only to UR20 palletizing
 ### 1. App
 - [ ] The live URL opens in an incognito window and on a phone
 - [ ] The main function works end to end with "Completează cu date de test"
+- [ ] A normal case AND a missing/wrong-data case can be shown (brief, Q&A 8)
 - [ ] An AI answer appears in under 15 s (or the fallback answer if the API is down)
 - [ ] The "Cum testezi" guide is visible; all text Romanian with diacritics; no lorem ipsum, no dead links
 - [ ] Nothing on the site claims a feature or result that doesn't exist (regulament §7)
@@ -22,13 +25,14 @@ File names: follow the organizer instructions in CHALLENGE.md §0 if they differ
 - [ ] The last push before hand-in built successfully on Vercel
 
 ### 2. Strategy
-- [ ] Exactly these headings: Problema · Publicul vizat · Soluția · Atragerea utilizatorilor și clienților · Trei pași de implementare
+- [ ] Exactly these headings: Problema · Publicul vizat: segment și decident · Soluția · Atragerea clienților · Scalarea la nivel național · Trei pași de implementare
 - [ ] Fits ONE page as PDF, text selectable (not an image)
 - [ ] Numbers identical to business/financial-summary.md
 
 ### 3. Financial model
 - [ ] Opens in Excel and Google Sheets; clicking a result cell shows a formula
-- [ ] Sheets Ipoteze, Venituri, Costuri, Rezultat; one base scenario
+- [ ] Sheets Ipoteze, Buget promovare, Rezultat; EUR; one calendar year; one base scenario
+- [ ] „Buget promovare” check says OK (exactly 30,000 EUR); „Rezultat” shows every calculation the brief asks for
 - [ ] Every assumption has a unit and a source or "(estimare)"; the example values are all replaced
 
 ### 4. Promo

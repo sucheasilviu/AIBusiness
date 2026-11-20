@@ -20,8 +20,8 @@ Codex loads AGENTS.md automatically; read this file too at the start of each ses
 
 ## codex-mihai: numbers + test data (laptop B)
 - **Test data** → `web/src/data/test-inputs.json`: 6 fictional records whose keys match the form fields in `web/src/lib/content.ts` (`demo.fields[].name`). Romanian names, cities and realistic values. No real people.
-- **Financial model** → `business/financial-model.xlsx`. The formulas are already built (sheets Ipoteze → Venituri → Costuri → Rezultat). Only the **blue-on-yellow cells in column B of "Ipoteze"** are inputs.
-  1. Propose every input value with a one-line justification (research or "(estimare)") in `business/financial-summary.md` → "Ipoteze propuse". Rename the 3 revenue streams to fit the product and switch unused ones off (0).
-  2. Mihai types the values into Excel, LibreOffice or Google Sheets (the sheet recalculates by itself). If you edit with Python/openpyxl instead: write only Ipoteze!B cells, never overwrite a formula, and have Mihai open and save the file once so the results are calculated.
-  3. Copy the results from sheet "Rezultat" (rows 5–15 for years 1–3; rows 18–26 for the key indicators) into `financial-summary.md` → "Rezultate". These numbers are the single source for the strategy, pitch and poster.
-- Sanity checks: no negative customers, gross margin plausible, CAC below LTV, the break-even month makes sense. Flag anything odd in your status file.
+- **Financial model** → `business/financial-model.xlsx`, rebuilt for this brief (EUR, one calendar year). Inputs are the blue-on-yellow cells: sheet „Ipoteze” column B (other costs, tax, commercial reserve, conversion rates, cells per client) and sheet „Buget promovare” (channel names, amounts that must total exactly 30,000, estimated relevant requests per channel). Sheet „Rezultat” computes cells needed for 300,000 EUR net profit, the brief's required calculations, the funnel and the delivery calendar.
+  1. Propose every input with a one-line justification in `business/financial-summary.md` → "Ipoteze propuse".
+  2. Mihai types them into Excel, LibreOffice or Google Sheets (it recalculates by itself). With Python/openpyxl: write only input cells, never a formula; Mihai then opens and saves the file once.
+  3. Copy the results from „Rezultat” into `financial-summary.md` → "Rezultate". These numbers are the single source for the strategy, pitch and poster.
+- Sanity checks: the budget check says OK; cost per relevant request is plausible for industrial B2B; all orders fit before the last order month; net profit ≥ 300,000 EUR; flag anything odd in your status file.

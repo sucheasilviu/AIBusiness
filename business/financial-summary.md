@@ -1,37 +1,32 @@
 # Model financiar — rezumat (sursa unică pentru strategie, pitch și afiș)
-> Owner: `codex-mihai`. Valorile vin din business/financial-model.xlsx (foaia „Rezultat”) după recalculare.
-> Exemplul din fișier (IdeaCheck) e fictiv: toate ipotezele trebuie înlocuite.
+> Owner: `codex-mihai`. Valorile vin din business/financial-model.xlsx după recalculare. EUR fără TVA, un an calendaristic (1 ianuarie – 31 decembrie).
+> Valorile din fișier sunt un exemplu: ipotezele echipei trebuie înlocuite și justificate.
 
-## Ipoteze propuse (se introduc în foaia „Ipoteze”, coloana B)
+## Ipoteze propuse (foaia „Ipoteze”, coloana B, și foaia „Buget promovare”)
 | Ipoteză | Valoare | Justificare / sursă |
 |---|---|---|
-| Utilizatori noi în luna 1 | … | … |
-| Creștere lunară anul 1 / anii 2–3 | … / … | … |
-| Conversie în clienți plătitori | … | … |
-| Churn lunar | … | … |
-| Sursa 1: denumire, preț | … | … |
-| Sursa 2: activă? detalii | … | … |
-| Sursa 3: activă? detalii | … | … |
-| Cost AI per client / per utilizator nou | … | … |
-| CAC | … | … |
-| Costuri fixe lunare (echipă, infrastructură, contabilitate, altele) | … | … |
-| Investiție inițială | … | … |
+| Alte costuri anuale (vânzări, demonstrații, service, administrare) | … | … |
+| Impozit | … | … |
+| Rezervă comercială | … | … |
+| Conversie cerere relevantă → întâlnire tehnică | … | … |
+| Conversie întâlnire tehnică → comandă | … | … |
+| Celule per client câștigat | … | … |
+
+| Direcție de promovare | Sumă (EUR) | Cereri relevante estimate | De ce |
+|---|---|---|---|
+| … | … | … | … |
+| **Total** | **30.000** | … | |
 
 ## Rezultate (scenariu de bază)
-| Indicator | An 1 | An 2 | An 3 |
-|---|---|---|---|
-| Venituri totale (lei) | … | … | … |
-| Costuri totale (lei) | … | … | … |
-| Profit net (lei) | … | … | … |
-| Clienți plătitori la final de an | … | … | … |
-
-| Indicator-cheie | Valoare |
+| Indicator | Valoare |
 |---|---|
-| Prețul principal | … |
-| Prima lună cu profit | … |
-| Luna în care profitul cumulat devine pozitiv | … |
-| Necesar de finanțare | … lei |
-| ARPU (luna 12) | … lei |
-| LTV | … lei |
-| CAC | … lei |
-| LTV / CAC | …x |
+| Contribuție pe celulă | 20.000 EUR |
+| Celule necesare pentru 300.000 EUR profit net / planificate cu rezervă | … / … |
+| Venit anual / cost direct anual | … / … |
+| Rezultat după promovare (înainte de alte costuri și impozit) | … |
+| Profit net | … |
+| Întâlniri tehnice necesare / cereri relevante necesare | … / … |
+| Cereri relevante estimate din plan | … |
+| Cost pe cerere relevantă / cost pe client câștigat | … / … |
+| Ultima lună de comandă pentru livrare în același an | … |
+| Informații de cerut pentru verificarea profitului net | … |
