@@ -1,7 +1,7 @@
 # Cercetare de piață — [produs]
 > Owner: `gemini-mihai`. Fiecare cifră are sursă (link) sau „(estimare)”. Maximum o pagină.
 
-## 0. Scanare rapidă (11:00–11:12)
+## 0. Scanare rapidă (11:30–11:42)
 - …
 
 ## 1. Mărimea pieței

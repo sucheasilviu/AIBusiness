@@ -1,6 +1,6 @@
-# DELIVERABLES: what we hand in (by 13:45)
+# DELIVERABLES: what we hand in (by 14:15)
 
-File names: follow the organizer instructions in CHALLENGE.md §0 if they differ.
+File names: follow the organizer instructions in CHALLENGE.md §0 if they differ; add the team code if the organizers gave one.
 
 | # | Deliverable | Points (prelim / final) | Owner | Source in the repo | Hand-in file | Done |
 |---|---|---|---|---|---|---|
@@ -17,6 +17,7 @@ File names: follow the organizer instructions in CHALLENGE.md §0 if they differ
 - [ ] The main function works end to end with "Completează cu date de test"
 - [ ] An AI answer appears in under 15 s (or the fallback answer if the API is down)
 - [ ] The "Cum testezi" guide is visible; all text Romanian with diacritics; no lorem ipsum, no dead links
+- [ ] Nothing on the site claims a feature or result that doesn't exist (regulament §7)
 - [ ] Screenshots + recording in evidence/; `/api/health` answers `"ai": true`
 - [ ] The last push before hand-in built successfully on Vercel
 
@@ -36,6 +37,7 @@ File names: follow the organizer instructions in CHALLENGE.md §0 if they differ
 
 ### 5. AI journal
 - [ ] Max one page: Instrumente folosite · Trei prompturi relevante · Exemplu de rezultat AI verificat și corectat
+- [ ] Templates and external resources declared, with licences (regulament §7)
 
 ### 6. Pitch
 - [ ] Max 5 slides; prototype link + QR; short "cum testezi" steps

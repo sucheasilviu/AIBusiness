@@ -13,5 +13,5 @@
 <!-- one line each: what a model got wrong or which prompt worked well · how it was caught · the fix -->
 
 ## Checkpoint log
-<!-- 11:55 / 12:25: 3 lines each: on track?, what changed, what was cut -->
+<!-- 12:25 / 12:55: 3 lines each: on track?, what changed, what was cut -->
 

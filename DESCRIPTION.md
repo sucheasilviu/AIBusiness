@@ -1,5 +1,5 @@
 # DESCRIPTION: product spec (single source of truth)
-> **Status: TEMPLATE.** `claude` fills this in between 11:10 and 11:25, right after the humans pick an idea.
+> **Status: TEMPLATE.** `claude` fills this in between 11:40 and 11:55, right after the humans pick an idea.
 > Agents: if your task contradicts this file, this file wins. Tell your human.
 > Sections marked (RO) are written in Romanian because they are copied into deliverables.
 

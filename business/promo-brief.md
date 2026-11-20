@@ -1,5 +1,5 @@
 # Brief material de promovare
-> Owner: `gemini-mihai`. Afișul îl construiește Claude la 12:45 (P8), sau Mihai în Canva (Plan B).
+> Owner: `gemini-mihai`. Afișul îl construiește Claude la 13:15 (P8), sau Mihai în Canva (Plan B).
 > Format: afiș A4 portret (sau postare 1080×1350). Regulile cer: mesaj, element vizual, îndemn la acțiune pentru publicul ales.
 
 - **Publicul (din strategy.md):** …

@@ -19,7 +19,7 @@ Antigravity loads this file **and** AGENTS.md automatically. Follow both. Your h
 ## gemini-mihai: research, strategy, promo (laptop B)
 - **Research** → `business/research.md`: market size (Romania first, EU if relevant), 3–5 competitors or alternatives with prices, the target segment in numbers, pricing benchmarks, acquisition channels. Every number gets a source URL or "(estimare)". Prefer official statistics (INS, Eurostat) and company websites. Keep it to about one page.
 - **Strategy** → `business/strategy.md`: fill the template; Romanian; exactly one page; headings unchanged; numbers copied from `business/financial-summary.md` (use "[…]" placeholders until it exists).
-- **Promo** → `business/promo-brief.md` + 2–3 image options in `business/promo/` (PNG). They feed the poster that Claude builds at 12:45, so the image must work behind text (calm area for the headline) and contain no text itself.
+- **Promo** → `business/promo-brief.md` + 2–3 image options in `business/promo/` (PNG). They feed the poster that Claude builds at 13:15, so the image must work behind text (calm area for the headline) and contain no text itself.
 - **Cross-check** (P6): when codex-mihai's numbers exist, check them against your research. Write disagreements in your status file under AI log.
 
 ## Both

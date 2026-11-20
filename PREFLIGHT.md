@@ -1,4 +1,4 @@
-# PREFLIGHT: everything ready before 11:00
+# PREFLIGHT: everything ready before 11:30
 
 ## Tonight, or first thing in the morning (Silviu, ~15 min)
 - [ ] **Install the Claude Code commands** (one time; I couldn't write into `.claude` from here). In PowerShell, inside the AIBusiness folder:
@@ -24,13 +24,13 @@
   ```
   Open http://localhost:3000/demo → "Completează cu date de test" → "Analizează cu AI". Under the result you should see "Generat cu Google Gemini (…)". If it says "Rezultat demonstrativ", the key isn't visible: restart the terminal after setting the environment variable, or create `web/.env.local` with `GEMINI_API_KEY=...` (gitignored).
 
-## Morning, by 10:30
+## Morning, by 11:00
 **Silviu**
 - [ ] **Vercel:** sign up at vercel.com with GitHub → Add New… → Project → import AIBusiness → **Root Directory: `web`** → Environment Variables: `GEMINI_API_KEY` = your key → Deploy. Put the live URL in README.md (Links).
 - [ ] Open `<live URL>/api/health` → `"ai": true`. Open `/demo` → test data → a Gemini result.
 - [ ] QR code: in `web/` run `npm run qr -- <live URL>/demo` → `submission/qr.png` + `qr.svg`.
 - [ ] **Claude Code** in the repo folder: run `/context` once (confirms CLAUDE.md + AGENTS.md are loaded); type `/` and check that kickoff, checkpoint, review, sync and final-check appear. Don't run them.
-- [ ] **Claude desktop app:** a new chat with the AIBusiness folder added (+ menu → Add folder), ready for P8 at 12:45.
+- [ ] **Claude desktop app:** a new chat with the AIBusiness folder added (+ menu → Add folder), ready for P8 at 13:15.
 - [ ] **Codex + Antigravity** open on the repo folder and signed in. In Antigravity, the browser subagent needs its Chrome extension (accept remote debugging the first time).
 
 **Mihai**
@@ -40,12 +40,12 @@
 
 **Both**
 - [ ] Check the usage left: Claude (Settings → Usage, or `/usage` in Claude Code), Codex (`/status`), Antigravity (model quota). If a weekly limit is nearly used up, tell each other now; the roles in TASKS.md can shift.
-- [ ] **No heavy agent use in the 5 hours before 11:00.** Each plan has a 5-hour usage window; starting fresh at kickoff means it lasts the whole challenge. Quick checks are fine.
+- [ ] **No heavy agent use in the 5 hours before 11:30.** Each plan has a 5-hour usage window; starting fresh at kickoff means it lasts the whole challenge. Quick checks are fine.
 - [ ] Optional, Silviu: turn on Claude usage credits as paid insurance in case the leader hits its limit.
 - [ ] Chargers, phone hotspot, water.
 - [ ] Organizer instructions (formats, size limits, where to submit) → CHALLENGE.md §0.
 
-## 10:45 at the desk
+## 11:15 at the desk
 - [ ] `git pull` on both laptops.
 - [ ] Send **P0** to each of the 4 Codex/Antigravity agents (Claude Code loads CLAUDE.md by itself).
 - [ ] Tabs open: live URL, DELIVERABLES.md, PROMPTS.md.

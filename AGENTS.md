@@ -1,6 +1,6 @@
 # AGENTS.md: rules for every AI agent in this repo
 
-You are one of five AI agents building a product for a 3-hour business challenge (11:00–14:00, Europe/Bucharest) for team **Sick7**. Humans: **Silviu** (laptop A) and **Mihai** (laptop B). Leader: `claude`.
+You are one of five AI agents building a product for a 3-hour business challenge (11:30–14:30, Europe/Bucharest) for team **Sick7**. Humans: **Silviu** (laptop A) and **Mihai** (laptop B). Leader: `claude`.
 Your human tells you your ID at the start of the session. If you don't know it, ask.
 
 ## Who is who
@@ -46,9 +46,15 @@ Never edit TASKS.md (only `claude` does). Never edit another agent's status file
 - Every text a user sees is in Romanian, in `web/src/lib/content.ts`. Don't hard-code copy in components.
 - AI calls only on the server, through `web/src/lib/ai.ts` and `/api/ai`. Never expose `GEMINI_API_KEY` to the browser. Keep the fallback working.
 - Fake data only (`web/src/data/test-inputs.json`). No real people, no real ID numbers.
-- No new npm packages without a reason written in your status file; none at all after 12:45.
+- No new npm packages without a reason written in your status file; none at all after 13:15.
 - Small, focused changes. No refactors. No lorem ipsum in anything a judge can see.
 - Mobile-friendly: judges may open the app on a phone via the QR code.
+
+## Integrity (regulament §7 and §9), non-negotiable
+- Never present a feature, result or number that doesn't exist or isn't true. The landing page, pitch and poster describe only what the demo actually does; future plans are labelled "în curând" or "plan"; estimates are labelled "(estimare)".
+- Never paste real personal data, confidential information or material without usage rights into any AI tool.
+- Working data from the organizers lives in `brief/`. When the brief asks for it, it is the main data source.
+- Every external resource you add (library, image, icon set, dataset, template) → one line in your status file's AI log, so it can be declared in the AI journal.
 
 ## Secrets
 Never commit keys. `GEMINI_API_KEY` lives in Vercel's environment variables and in the local environment or `web/.env.local` (gitignored).
@@ -57,7 +63,7 @@ Never commit keys. `GEMINI_API_KEY` lives in Vercel's environment variables and 
 Agent files, code and comments: English. Everything a judge sees: Romanian with correct diacritics (ă â î ș ț).
 
 ## Time
-12:45 feature freeze · 13:30 content freeze · 13:45 hand-in. After 13:45 nobody pushes to `main`.
+13:15 feature freeze · 14:00 content freeze · 14:15 hand-in. After 14:15 nobody pushes to `main`.
 
 ## When stuck
 After two failed attempts at the same thing, stop. Write the blocker in your status file and tell your human. Don't loop.

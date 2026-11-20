@@ -1,5 +1,5 @@
 ---
-description: 13:30 final check against DELIVERABLES.md and the grid, then the hand-in list
+description: 14:00 final check against DELIVERABLES.md and the grid, then the hand-in list
 ---
 Do the final check:
 
