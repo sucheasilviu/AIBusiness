@@ -74,7 +74,7 @@ function buildRequestSummary(
   }
   if (engine.cycle) {
     lines.push(
-      `Ritm: linie ${engine.cycle.lineRate}/min vs. robot ${engine.cycle.robotRate}/min → efectiv ${engine.cycle.effectiveRate}/min (${engine.cycle.bucketsPerHour} găleți/h), blocaj: ${r.bottlenecks[engine.cycle.bottleneck]}.`,
+      `Ritm (estimare pe baza rezultatelor de test PURATOS): linie ${fmt(engine.cycle.lineRate)}/min vs. robot ${fmt(engine.cycle.robotRate)}/min → efectiv ${fmt(engine.cycle.effectiveRate)}/min (${Math.round(engine.cycle.bucketsPerHour)} găleți/h), blocaj: ${r.bottlenecks[engine.cycle.bottleneck]}.`,
     );
   }
 
